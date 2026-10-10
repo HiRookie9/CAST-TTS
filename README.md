@@ -5,7 +5,6 @@
 [![arxiv](https://img.shields.io/badge/arxiv-2603.16280-B31B1B.svg)](https://arxiv.org/abs/2603.16280)
 [![project page](https://img.shields.io/badge/project-CAST--TTS%20Page-blue.svg)](https://hirookie9.github.io/CAST-TTS-Page/)
 
-[project page](https://hirookie9.github.io/CAST-TTS-Page/) | [paper](https://arxiv.org/abs/2603.16280)
 
 </div>
 
@@ -144,13 +143,8 @@ place.
 
 ## CAST-TTS checkpoints
 
-Download: **[coming soon](./src/accel_hydra/examples/cast-tts/checkpoints)**
+Download: **[CKPT](https://drive.google.com/file/d/1xNigpbWw-FqpylW7qda8c4cjsxMybs-X/view?usp=sharing)**
 
-<!-- CKPT_LINK: replace the link above with the Google Drive URL once uploaded. -->
-
-*(Pretrained CAST-TTS checkpoints are being uploaded to Google Drive and the
-link above will be updated as soon as they are available. Users can already
-train the three stages from scratch on their own data.)*
 
 Each stage directory contains a `model.safetensors` file plus the `config.yaml`
 used to train it. Download the checkpoint you need and pass its directory to
