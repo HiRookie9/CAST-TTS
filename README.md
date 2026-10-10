@@ -223,8 +223,3 @@ accelerate launch --config_file configs/accelerate/nvidia/1gpu.yaml \
   the CAST-TTS model implementation builds upon.
 - [CapSpeech](https://github.com/OpenSound/CapSpeech), the source of the
   caption data and the speaker and duration models used here.
-
-## Citation
-
-If you find this work useful, please cite the CAST-TTS paper and the projects
-listed above.
