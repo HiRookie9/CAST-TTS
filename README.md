@@ -68,7 +68,7 @@ included here.
 
 The training manifests are not stored in this repository. Download:
 
-**[coming soon](./src/accel_hydra/examples/cast-tts/data)**
+**[Datasets](https://drive.google.com/drive/folders/1nC7uNGBMH6EvVWhWuBeFlF2HEAktQIKA?usp=drive_link)**
 
 <!-- DATA_LINK: replace the link above with the Google Drive URL once uploaded. -->
 
