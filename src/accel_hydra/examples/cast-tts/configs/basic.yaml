@@ -1,0 +1,18 @@
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+vocoder: "bigvgan"
+vocoder_model_id: "nvidia/bigvgan_v2_24khz_100band_256x"
+text_model_id: "google/flan-t5-large"
+speaker_model_id: "OpenSound/CapSpeech-models"
+tokenizer_path: utils/vocab.txt
+tokenizer: "char"
+
+seed: 2025
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling", "hatch-requirements-txt"]
+build-backend = "hatchling.build"
+
+[project]
+name = "accel_hydra"
+version = "0.0.3"
+description = "AccelHydra is a lightweight, modular, configurable training framework built on Accelerate and Hydra"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies"]
+
+[project.urls]
+"Homepage" = "https://github.com/wsntxxn/AccelHydra"
+"Bug Tracker" = "https://github.com/wsntxxn/AccelHydra/issues"
+
+[tool.hatch.build]
+exclude = [
+  "dist/*",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/accel_hydra"]
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements.txt"]

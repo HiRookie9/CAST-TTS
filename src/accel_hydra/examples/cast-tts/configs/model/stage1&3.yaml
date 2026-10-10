@@ -1,0 +1,57 @@
+_target_: models.flowmatching_x1_speaker_omni.CASTFlowMatching
+autoencoder:
+  _target_: models.autoencoder.mel.mel_encoder_new.MEL
+  encoder:
+    _target_: models.autoencoder.mel.mel_encoder_new.MelSpec
+    n_fft: 1024
+    hop_length: 256
+    win_length: 1024
+    n_mel_channels: 100
+    target_sample_rate: ${sample_rate}
+    mel_spec_type: "bigvgan"
+  decoder:
+    _target_: models.autoencoder.mel.bigvgan.BigVGANDecoder
+    ckpt_path: ${vocoder_model_id}
+    use_cuda_kernel: False
+  latent_dim: ${n_mel_channels}
+  downsampling_ratio: ${.encoder.hop_length}
+  sample_rate: ${sample_rate}
+text_encoder:
+  _target_: models.text_encoder.ConvNeXtTextEncoder
+  text_num_embeds: ${get_vocab_size:${tokenizer_path},${tokenizer}}
+  text_dim: 512
+  mask_padding: True
+  average_upsampling: False
+  conv_layers: 4
+  conv_mult: 2
+content_encoder:
+  _target_: models.content_encoder.ContentEncoder
+  speaker_model: ${speaker_model_id}
+  text_encoder:
+    _target_: models.t5_text_encoder.T5TextEncoder
+    model_name: ${text_model_id}
+  p: 0.5
+  input_dim: 1024
+  output_dim: 1536
+cfg_drop_config:
+  text_embed: 0.2
+  caption_embed: 0.2
+tokenizer_path: ${tokenizer_path}
+tokenizer: ${tokenizer}
+sample_strategy: "uniform"
+backbone:
+  _target_: models.cross_dit.InputFusionCrossDiT
+  in_dim: ${n_mel_channels}
+  out_dim: ${n_mel_channels}
+  embed_dim: 1024
+  context_dim: 1536
+  ta_content_dim: ${..text_encoder.text_dim}
+  depth: 22
+  heads: 16
+  ff_mult: 2
+  qk_norm: null
+  pe_attn_head: null
+  attn_backend: torch
+  attn_mask_enabled: False  # why?
+  checkpoint_activations: False
+  skip: true

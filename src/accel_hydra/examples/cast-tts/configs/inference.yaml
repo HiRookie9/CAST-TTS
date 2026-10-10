@@ -1,0 +1,23 @@
+defaults:
+  - basic
+  - _self_
+
+exp_dir: exp/cast_stage1
+ckpt_dir_or_file: ""
+wav_dir_root: Null
+wav_dir: "inference"
+
+
+target_rms: 0.1
+test_jsonl: ""
+
+infer_type: "prompt" 
+# infer_type: "caption"
+
+infer_args:
+  num_steps: 32
+  guidance_scale: 2.0
+  sway_sampling_coef: -1
+  seed: 2025
+  disable_progress: false
+  latent_shape: [null, 100]

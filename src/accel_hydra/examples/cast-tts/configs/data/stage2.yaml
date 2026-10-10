@@ -1,0 +1,26 @@
+batch_size: 1  # required by DataLoader initialization
+batch_sampler:
+  _target_: data_module.batch_sampler.SortedDynamicBatchSampler
+  batch_length_threshold: 9600
+  max_samples: 16
+  random_seed: 666
+  drop_last: true
+even_batches: false
+
+train_dataset:
+  _target_: data_module.dataset.CustomDataset
+  jsonl_files: ["${data_root}/libritts_cap_train.jsonl", "${data_root}/giga_cap_train.jsonl"]
+  min_duration: 0.3
+  max_duration: 30.0
+  target_sample_rate: 24000
+  prompt_sample_rate: 16000
+  hop_length: 256
+
+val_dataset:
+  _target_: data_module.dataset.CustomDataset
+  jsonl_files: ["${data_root}/libritts_cap_test.jsonl", "${data_root}/giga_cap_test.jsonl"]
+  min_duration: 0.3
+  max_duration: 30.0
+  target_sample_rate: 24000
+  prompt_sample_rate: 16000
+  hop_length: 256

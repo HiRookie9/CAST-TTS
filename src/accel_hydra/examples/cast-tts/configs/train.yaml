@@ -1,0 +1,77 @@
+defaults:
+  - basic
+  - data@data_dict: stage1
+  - model: stage1&3
+  - loss@loss_fn: identity
+  - _self_
+
+n_mel_channels: 100
+
+exp_name: CAST-TTS
+exp_dir: experiments/${exp_name}/
+logging_file: ${exp_dir}/train.log
+
+
+train_dataloader:
+  _target_: torch.utils.data.DataLoader
+  dataset: ${data_dict.train_dataset}
+  batch_sampler: ${data_dict.batch_sampler}
+  num_workers: 8
+  collate_fn:
+    _target_: data_module.collate_function.CASTCollate
+
+val_dataloader:
+  _target_: torch.utils.data.DataLoader
+  dataset: ${data_dict.val_dataset}
+  batch_size: 8
+  shuffle: false
+  num_workers: 2
+  collate_fn:
+    _target_: data_module.collate_function.CASTCollate
+    
+warmup_params:
+  warmup_steps: 20000
+  warmup_epochs: Null
+  epoch_length: ${epoch_length}
+
+gradient_accumulation_steps: 1
+
+sample_rate: 24000
+data_root: data
+
+optimizer:
+  _target_: torch.optim.AdamW
+  lr: !!float 7.5e-5
+  weight_decay: 0.01
+
+lr_scheduler:
+  _target_: "transformers.get_scheduler"
+  name: "linear"
+
+epochs: 500
+epoch_length: Null
+
+trainer:
+  _target_: trainer.cast_trainer.CASTTrainer
+  project_dir: ${exp_dir}
+  logging_file: ${logging_file}
+  gradient_accumulation_steps: ${gradient_accumulation_steps}
+  max_grad_norm: 1.0
+  epochs: ${epochs}
+  epoch_length: ${epoch_length}
+  save_last_k: 1
+  permanent_save_every_n_steps: 100000
+  early_stop: Null
+  logging_config:
+    _target_: accel_hydra.trainer.LoggingConfig
+    report_to: wandb
+    project: cast_tts
+    save_dir: ${exp_dir}
+    name: ${exp_name}
+    resume_id: Null
+    workspace: null
+  metric_monitor:
+    _target_: accel_hydra.trainer.MetricMonitor
+    metric_name: loss
+    mode: min
+  even_batches: ${data_dict.even_batches}
