@@ -135,11 +135,9 @@ by ID, so no local cache path is hard-coded:
 
 - Vocoder: [`nvidia/bigvgan_v2_24khz_100band_256x`](https://huggingface.co/nvidia/bigvgan_v2_24khz_100band_256x)
 - Text encoder: [`google/flan-t5-large`](https://huggingface.co/google/flan-t5-large)
-- Speaker/content encoder and duration predictor: [`OpenSound/CapSpeech-models`](https://huggingface.co/OpenSound/CapSpeech-models)
+- Duration predictor: [`OpenSound/CapSpeech-models`](https://huggingface.co/OpenSound/CapSpeech-models)
 
-The speaker encoder loads `wavlm_large_finetune.pth` from the CapSpeech model
-repository. Set `HF_HOME` if you want the Hugging Face cache in a specific
-place.
+Set `HF_HOME` if you want the Hugging Face cache in a specific place.
 
 ## CAST-TTS checkpoints
 
